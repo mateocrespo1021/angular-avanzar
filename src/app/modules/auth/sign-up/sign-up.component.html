@@ -1,0 +1,302 @@
+<div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
+
+    <div *ngIf="formCode" class="flex min-h-full w-120 flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <!-- Logo -->
+            <div class="w-28">
+                <img src="assets/images/logo/avanzar.png" />
+            </div>
+            
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">
+                Código de verificación
+            </div>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" action="#" method="POST">
+                <div>
+                    <label for="email" class="block text-1xl font-medium leading-6 ">Correo Electrónico</label>
+                    <div class="mt-2">
+                        
+                            <label class="block w-full rounded-md py-1.5 shadow-sm ring-inset focus:ring-2 focus:ring-inset sm:text-lg sm:leading-6">
+                                {{persona.correo}}
+                              </label>
+                              
+                        </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="password" class="block text-1xl font-medium leading-6 ">Código</label>
+
+                    </div>
+
+                    
+                    
+                    <div class="mt-2">
+                        <input  style="margin-block-end: 20px;" id="codigo" name="codigo" type="text" placeholder="   Ingrese su codigo aqui   "
+                            class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
+                            [(ngModel)]="codeInt" #inputCodeHmtl>
+                    </div>
+
+
+                    <!-- Alert -->
+                    <fuse-alert *ngIf="showCode" [appearance]="'outline'" [showIcon]="true"
+                        [type]="alertCod.type" [@shake]="alertCod.type === 'error'">
+                        {{ alertCod.message }}
+                    </fuse-alert>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-1xl font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        (click)="CodeVer()" #btnCodeVerHtml>Registrar</button>
+                </div>
+            </form>
+
+            <p class="mt-10 text-center text-1xl  text-gray-500 hover:cursor-pointer">
+
+                <btn class="font-semibold leading-6 text-indigo-600 " (click)="formCode=false " *ngIf="returnForm"><-- Regresar </btn>
+
+            </p>
+            <!-- Alert -->
+            <fuse-alert class="mt-8" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alertReg.type"
+                [@shake]="alertReg.type === 'error'">
+                {{ alertReg.message }}
+            </fuse-alert>
+        </div>
+    </div>
+
+
+    <div *ngIf="!formCode"
+        class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="w-full max-w-120 sm:w-120 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-28">
+                <img src="assets/images/logo/avanzar.png" />
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">
+                Registrate
+            </div>
+            <div class="flex items-baseline mt-0.5 font-medium">
+                <div>Ya tienes una cuenta?</div>
+                <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-in']">Iniciar sesión
+                </a>
+            </div>
+
+
+
+            <!-- Sign Up form -->
+            <form class="mt-8" [formGroup]="signUpForm" #signUpNgForm="ngForm">
+                <!-- Cédula field -->
+                <div class="grid grid-cols-2 gap-6">
+                    <mat-form-field class="w-full">
+                        <mat-label>Cédula</mat-label>
+                        <input id="cedula" matInput [formControlName]="'cedula'" [(ngModel)]="persona.cedula" maxlength="10" pattern="[0-9]*" #cedulaField/>
+                        <mat-error *ngIf="
+                            signUpForm.get('cedula').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error
+                            *ngIf="
+                            signUpForm.get('cedula').hasError('longitudInvalida') && (!signUpForm.get('cedula').hasError('pattern'))">La
+                            cédula debe contener 10 dígitos</mat-error>
+                        <mat-error *ngIf="signUpForm.get('cedula').hasError('pattern')">Solo se permiten números en la
+                            cédula</mat-error>
+                        
+                    </mat-form-field>
+
+                    <!-- Primer Nombre field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Primer Nombre</mat-label>
+                        <input id="primernombre" matInput [formControlName]="'primernombre'"
+                            [(ngModel)]="persona.primer_nombre" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+(\s[A-Za-zñÑáéíóúÁÉÍÓÚ]+)*$" />
+                        <mat-error *ngIf="
+                            signUpForm.get('primernombre').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error *ngIf="signUpForm.get('primernombre').hasError('pattern')">
+                            Nombre inválido
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Segundo Nombre field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Segundo Nombre</mat-label>
+                        <input id="segundonombre" matInput [formControlName]="'segundonombre'"
+                            [(ngModel)]="persona.segundo_nombre" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+(\s[A-Za-zñÑáéíóúÁÉÍÓÚ]+)*$" />
+                        <mat-error *ngIf="
+                            signUpForm.get('segundonombre').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error *ngIf="signUpForm.get('segundonombre').hasError('pattern')">
+                            Nombre inválido
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Primer Apellido field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Primer Apellido</mat-label>
+                        <input id="primerapellido" matInput [formControlName]="'primerapellido'"
+                            [(ngModel)]="persona.primer_apellido" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+(\s[A-Za-zñÑáéíóúÁÉÍÓÚ]+)*$" />
+                        <mat-error *ngIf="
+                            signUpForm.get('primerapellido').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error *ngIf="signUpForm.get('primerapellido').hasError('pattern')">
+                            Apellido inválido
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Segundo Apellido field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Segundo Apellido</mat-label>
+                        <input id="segundoapellido" matInput [formControlName]="'segundoapellido'"
+                            [(ngModel)]="persona.segundo_apellido" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+(\s[A-Za-zñÑáéíóúÁÉÍÓÚ]+)*$" />
+                        <mat-error *ngIf="
+                            signUpForm.get('segundoapellido').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error *ngIf="signUpForm.get('segundoapellido').hasError('pattern')">
+                            Apellido inválido
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Celular field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Celular</mat-label>
+                        <input id="celular" matInput [formControlName]="'celular'" [(ngModel)]="persona.celular"
+                            maxlength="10" pattern="[0-9]*" />
+                        <mat-error *ngIf="
+                            signUpForm.get('celular').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error
+                            *ngIf="
+                            signUpForm.get('celular').hasError('longitudInvalida') && (!signUpForm.get('celular').hasError('pattern'))">El
+                            celular debe contener 10 dígitos</mat-error>
+                        <mat-error *ngIf="signUpForm.get('celular').hasError('pattern')">Solo se permiten números en el
+                            celular</mat-error>
+                    </mat-form-field>
+
+                    <!-- Correo Electrónico field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Correo Electrónico</mat-label>
+                        <input id="email" matInput [formControlName]="'correo'" [(ngModel)]="persona.correo"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" #correoField/>
+                        <mat-error *ngIf="
+                            signUpForm.get('correo').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error *ngIf="signUpForm.get('correo').hasError('pattern')">El correo no es
+                            válido</mat-error>
+                    </mat-form-field>
+
+                    <!-- Contraseña field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Contraseña</mat-label>
+                        <input id="password" matInput type="password" [formControlName]="'password'" #passwordField
+                            maxlength="8" pattern="^(?!.*\s).*$" />
+                        <button mat-icon-button type="button" (click)="
+                            passwordField.type === 'password'
+                                ? (passwordField.type = 'text')
+                                : (passwordField.type = 'password')
+                        " matSuffix>
+                            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                        </button>
+                        <mat-error *ngIf="signUpForm.get('password').hasError('required')">Este campo es
+                            requerido</mat-error>
+                        <mat-error
+                            *ngIf="signUpForm.get('password').hasError('longitudInvalida') && (!signUpForm.get('password').hasError('pattern'))">La
+                            contraseña debe contener 8 dígitos</mat-error>
+                        <mat-error *ngIf="signUpForm.get('password').hasError('pattern')">Contraseña
+                            inválida</mat-error>
+                    </mat-form-field>
+
+                    <!-- Dirección field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Dirección</mat-label>
+                        <input id="direccion" matInput [formControlName]="'direccion'" [(ngModel)]="persona.direccion"
+                            pattern="^\S.*\S$" />
+                        <mat-error *ngIf="signUpForm.get('direccion').hasError('required')">Este campo es
+                            requerido</mat-error>
+                        <mat-error *ngIf="signUpForm.get('direccion').hasError('pattern')">Dirección
+                            inválida</mat-error>
+                    </mat-form-field>
+
+                    <!-- Fecha de Nacimiento field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Fecha de Nacimiento</mat-label>
+                        <input id="fecha_nacimiento" matInput [formControlName]="'fecha_nacimiento'"
+                            [matDatepicker]="picker1" [(ngModel)]="selectedDate" readonly />
+                        <mat-error *ngIf="
+                            signUpForm.get('fecha_nacimiento').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                        <mat-error *ngIf="signUpForm.get('fecha_nacimiento').hasError('menorDeEdad')">Debes tener al
+                            menos 18 años</mat-error>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+                    <!-- Género field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Género</mat-label>
+                        <mat-select id="genero" [placeholder]="'Genero'" [formControlName]="'genero'" name="genero"
+                            required>
+                            <mat-option value="Masculino">Masculino</mat-option>
+                            <mat-option value="Femenino">Femenino</mat-option>
+                            <mat-option value="Otro">Otro ...</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="signUpForm.get('genero').hasError('required')">
+                            Este campo es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- ToS and PP -->
+                <div class="inline-flex items-end w-full mt-1.5">
+                    <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'agreements'">
+                        <span>Acepto</span>
+                        <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['./']">Términos</a>
+                        <span> y</span>
+                        <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['./']">Política de
+                            privacidad</a>
+                    </mat-checkbox>
+                    <mat-error *ngIf="
+                            signUpForm.get('agreements').invalid &&
+                            (signUpForm.get('agreements').touched ||
+                                signUpNgForm.submitted)
+                        ">
+                        Debes aceptar los términos y condiciones para continuar.
+                    </mat-error>
+                </div>
+
+                <!-- Submit button -->
+                <button class="fuse-mat-button-large w-full mt-6" mat-flat-button [color]="'primary'"
+                    [disabled]="!isFormValidAndAccepted()" (click)="capturarCedulaYBuscar()">
+                    <span *ngIf="!signUpForm.disabled">
+                        Crear su cuenta gratuitamente
+                    </span>
+                    <mat-progress-spinner *ngIf="signUpForm.disabled" [diameter]="24"
+                        [mode]="'indeterminate'"></mat-progress-spinner>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden dark:border-l" style="background-image: url('https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80'); background-size: cover; position: relative;">
+        <!-- Capa de fondo semitransparente -->
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+    
+        <!-- Content -->
+        <div class="z-10 relative w-full max-w-2xl">
+            <div class="text-7xl font-bold leading-none text-gray-100">
+                <div>{{systemName}}</div>
+            </div>
+            <div class="mt-6 text-lg tracking-tight leading-6 text-gray-400">
+                Somos una organización que apoya a mujeres emprendedoras comprometidas con su desarrollo construyendo espacios de colaboración interinstitucional que brindan a las emprendedoras guías para el sano crecimiento de sus emprendimientos.
+            </div>
+            <div class="flex items-center mt-8">
+                <div class="flex flex-0 items-center -space-x-1.5">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

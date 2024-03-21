@@ -1,0 +1,229 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Editar Emprendedora</div>
+        <button
+            mat-icon-button
+            (click)="saveAndClose()"
+            [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form
+        class="flex flex-col flex-auto p-1 sm:p-8 overflow-y-auto"
+        [formGroup]="composeForm">
+
+
+                <!-- Datos -->
+
+
+
+        <div class="flex">
+            <mat-form-field>
+                <mat-label>Cedula</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'cedula'">
+            </mat-form-field>
+        </div>
+
+        <div class="flex">
+
+    
+            <mat-form-field id="datos">
+                <mat-label>Primer Nombre</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'primerNombre'">
+            </mat-form-field>
+
+            
+        <mat-form-field>
+            <mat-label>Segundo Nombre</mat-label>
+            <input
+                matInput
+                [formControlName]="'segundoNombre'">
+        </mat-form-field>
+
+        </div>
+
+        
+        <div class="flex">
+            <mat-form-field  id="datos">
+                <mat-label>Primer Apellido</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'segundoNombre'">
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Segundo Apellido</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'segundoNombre'">
+            </mat-form-field>
+        
+        </div>
+
+
+        <div class="flex ">
+
+            <mat-form-field  id="datos" >
+                <mat-label>Correo</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'correoElectronico'">
+            </mat-form-field>
+    
+    
+            
+            <mat-form-field>
+                <mat-label>Celular</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'celular'">
+            </mat-form-field>
+
+     
+        
+        </div>
+
+
+ 
+
+        
+   
+
+ 
+
+        <mat-form-field>
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          
+          <div class="flex">
+            <mat-form-field class="flex-auto gt-xs:pr-3"  id="datos">
+                <mat-label>Estado</mat-label>
+                <mat-select >
+                    <mat-option value="country-1">Activo</mat-option>
+                    <mat-option value="country-2">Inactivo</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="flex-auto gt-xs:pr-3"  id="datos">
+                <mat-label> Planes</mat-label>
+                <mat-select >
+                    <mat-option value="country-1">Plan 1</mat-option>
+                    <mat-option value="country-1">Plan 2</mat-option>
+                    <mat-option value="country-1">Plan 3</mat-option>
+
+                </mat-select>
+            </mat-form-field>
+          </div>
+
+
+
+                  
+        <div class="flex">
+
+        <mat-form-field class="flex-auto gt-xs:pr-3"  id="datos">
+            <mat-label>Genero</mat-label>
+            <mat-select >
+                <mat-option value="country-1">Hombre</mat-option>
+                <mat-option value="country-2">Mujer</mat-option>
+                <mat-option value="country-3">Otro..</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="flex-auto gt-xs:pr-3">
+            <mat-label>Nacionalidad</mat-label>
+            <mat-select >
+                <mat-option value="country-1">Ecuatoriano</mat-option>
+                <mat-option value="country-2">Peruano</mat-option>
+                <mat-option value="country-3">Colombiano</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        </div>
+
+        <mat-form-field class="flex-auto">
+            <mat-label>Direccion</mat-label>
+            <textarea
+                matInput
+                [rows]="3"></textarea>
+            <mat-icon
+                class="icon-size-5"
+                matPrefix
+                [svgIcon]="'heroicons_solid:bars-3-bottom-left'"></mat-icon>
+        </mat-form-field>
+
+
+        <div class="flex">
+            <mat-form-field >
+                <mat-label>Contraseña</mat-label>
+                <input
+                    id="password"
+                    matInput
+                    type="password"
+                    [formControlName]="'password'"
+                    #passwordField>
+                <button
+                    mat-icon-button
+                    type="button"
+                    (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                    matSuffix>
+                    <mat-icon
+                        class="icon-size-5"
+                        *ngIf="passwordField.type === 'password'"
+                        [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                    <mat-icon
+                        class="icon-size-5"
+                        *ngIf="passwordField.type === 'text'"
+                        [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                </button>
+                <mat-error>
+                    Password is required
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+
+        
+
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="-ml-2">
+               
+            </div>
+
+            <div class="flex items-center mt-4 sm:mt-0">
+                <!-- Discard -->
+                <button  id="datos"
+                    class="ml-auto sm:ml-0"
+                    mat-stroked-button
+                    (click)="discard()">
+                    Cancelar
+                </button>
+
+                <!-- Send -->
+                <button
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="send()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,346 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Loader -->
+        <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+        </div>
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Publicaciones de Servicios</div>
+        <!-- Actions -->
+        <div class="flex shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Search -->
+            <mat-form-field class="fuse-mat-dense fuse-mat-rounded min-w-64" [subscriptSizing]="'dynamic'">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>
+                <input matInput [autocomplete]="'off'" [placeholder]="'Buscar servicios'" #input
+                    (input)="buscarPublicaciones(input.value)">
+            </mat-form-field>
+            <!-- Add product button -->
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="verifyLimtiPost()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Nueva Publicación</span>
+            </button>
+
+        </div>
+    </div>
+    <div role="alert" *ngIf="banLimitPost" class="absolute bottom-0 z-10" style="right: 0;">
+        <div class="bg-red-500 text-white font-bold rounded-t px-2 py-2">
+            <h1>{{titleAlert}}</h1>
+        </div>
+        <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+            <p [innerHTML]="bodyAlert"></p>
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+
+        <!-- Products list -->
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+            <ng-container *ngIf="(publicaciones$ | async) as publicaciones">
+                <ng-container *ngIf="publicaciones.length > 0; else noPublicaciones">
+                        <div class="grid">
+                            <!-- Header -->
+                            <div class="inventory-grid z-10 sticky top-0 grid gap-4 py-4 px-6 md:px-8 shadow text-md font-semibold text-secondary bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                                matSort matSortDisableClear>
+                                <div></div>
+                                <div [mat-sort-header]="'nombreServicio'">
+                                    Producto
+                                </div>
+                                <div [mat-sort-header]="'tituloPublicacion'">Publicación</div>
+                                <div class="hidden sm:block" [mat-sort-header]="'precioFijoServicio'">
+                                    Precio
+                                </div>
+                                <div class="hidden lg:block" [mat-sort-header]="'cantidadDisponible'">
+                                    Disponibles
+                                </div>
+                                <div class="hidden lg:block" [mat-sort-header]="'estado'">
+                                    Activa
+                                </div>
+                                <div class="hidden sm:block">Detalles</div>
+                            </div>
+                            <!-- Rows -->
+                            <ng-container *ngIf="(publicaciones$ | async) as publicaciones">
+                                <ng-container *ngFor="let publicacion of publicacionesFiltradas; trackBy: trackByFn">
+                                    <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
+
+                                        <!-- Image -->
+                                        <div class="flex items-center">
+                                            <div
+                                                class="relative flex flex-0 items-center justify-center w-12 h-12 mr-6 rounded overflow-hidden border">
+                                                <img class="w-8" *ngIf="publicacion.servicios.miniaturaServicio"
+                                                    [alt]="'Publicacion thumbnail image'"
+                                                    [src]="publicacion.servicios.miniaturaServicio" width="300"
+                                                    height="200">
+                                                <div class="flex items-center justify-center w-full h-full text-xs font-semibold leading-none text-center uppercase"
+                                                    *ngIf="!publicacion.servicios.miniaturaServicio">
+                                                    NO IMG
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- SKU -->
+                                        <div class="hidden md:block truncate">
+                                            {{publicacion.servicios.nombreServicio}}
+                                        </div>
+
+                                        <!-- Name -->
+                                        <div class="truncate">
+                                            {{publicacion.tituloPublicacion}}
+                                        </div>
+
+                                        <!-- Price -->
+                                        <div class="hidden sm:block">
+                                            {{publicacion.servicios.precioFijoServicio |
+                                            currency:'USD':'symbol':'1.2-2'}}
+                                        </div>
+
+                                        <!-- Stock -->
+                                        <div class="hidden lg:flex items-center">
+                                            <div class="min-w-4">{{publicacion.servicios.cantidadDisponible}}</div>
+                                            <!-- Low stock -->
+                                            <div class="flex items-end ml-2 w-1 h-4 bg-red-200 rounded overflow-hidden"
+                                                *ngIf="publicacion.servicios.cantidadDisponible < 20">
+                                                <div class="flex w-full h-1/3 bg-red-600"></div>
+                                            </div>
+                                            <!-- Medium stock -->
+                                            <div class="flex items-end ml-2 w-1 h-4 bg-orange-200 rounded overflow-hidden"
+                                                *ngIf="publicacion.servicios.cantidadDisponible >= 20 && publicacion.servicios.cantidadDisponible < 30">
+                                                <div class="flex w-full h-2/4 bg-orange-400"></div>
+                                            </div>
+                                            <!-- High stock -->
+                                            <div class="flex items-end ml-2 w-1 h-4 bg-green-100 rounded overflow-hidden"
+                                                *ngIf="publicacion.servicios.cantidadDisponible >= 30">
+                                                <div class="flex w-full h-full bg-green-400"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Active -->
+                                        <div class="hidden lg:block">
+                                            <ng-container *ngIf="publicacion.estado">
+                                                <mat-icon class="text-green-400 icon-size-5"
+                                                    [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                            </ng-container>
+                                            <ng-container *ngIf="!publicacion.estado">
+                                                <mat-icon class="text-gray-400 icon-size-5"
+                                                    [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>
+                                            </ng-container>
+                                        </div>
+
+                                        <!-- Details button -->
+                                        <div>
+                                            <button class="min-w-10 min-h-7 h-7 px-2 leading-6" mat-stroked-button
+                                                (click)="toggleDetails(publicacion.idPublicacion)">
+                                                <mat-icon class="icon-size-5"
+                                                    [svgIcon]="selectedPublicacion?.idPublicacion === publicacion.idPublicacion ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <ng-container
+                                            *ngIf="selectedPublicacion?.idPublicacion === publicacion.idPublicacion">
+                                            <ng-container
+                                                *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: publicacion}"></ng-container>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+
+                        <!--    <mat-paginator
+                        class="sm:absolute sm:inset-x-0 sm:bottom-0 border-b sm:border-t sm:border-b-0 z-10 bg-gray-50 dark:bg-transparent"
+                        [ngClass]="{'pointer-events-none': isLoading}"
+                        [length]="pagination.length"
+                        [pageIndex]="pagination.page"
+                        [pageSize]="pagination.size"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        [showFirstLastButtons]="true"></mat-paginator> -->
+                    </ng-container>
+                </ng-container>
+
+            <ng-template #rowDetailsTemplate let-product>
+                <div class="shadow-lg overflow-hidden">
+                    <div class="flex border-b">
+                        <!-- Selected product form -->
+                        <form class="flex flex-col w-full" [formGroup]="selectedPublicacionForm">
+
+                            <div class="flex flex-col sm:flex-row p-8">
+
+                                <!-- Product images and status -->
+                                <div class="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-32 h-44 border rounded overflow-hidden">
+                                            <ng-container
+                                                *ngIf="selectedPublicacionForm.get('imagenes').value.length; else noImage">
+                                                <img class="w-full h-full object-cover"
+                                                    [src]="selectedPublicacionForm.get('imagenes').value[selectedPublicacionForm.get('currentImageIndex').value]">
+                                            </ng-container>
+                                            <ng-template #noImage>
+                                                <span class="flex items-center min-h-20 text-lg font-semibold">NO
+                                                    IMAGEN</span>
+                                            </ng-template>
+                                        </div>
+                                        <div class="flex items-center mt-2 whitespace-nowrap"
+                                            *ngIf="selectedPublicacionForm.get('imagenes').value.length">
+                                            <button mat-icon-button (click)="cycleImages(false)">
+                                                <mat-icon class="icon-size-5"
+                                                    [svgIcon]="'heroicons_mini:arrow-long-left'"></mat-icon>
+                                            </button>
+                                            <span class="font-sm mx-2">
+                                                {{selectedPublicacionForm.get('currentImageIndex').value + 1}} of
+                                                {{selectedPublicacionForm.get('imagenes').value.length}}
+                                            </span>
+                                            <button mat-icon-button (click)="cycleImages(true)">
+                                                <mat-icon class="icon-size-5"
+                                                    [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col mt-8">
+                                        <span class="font-semibold mb-2">Estado del producto</span>
+                                        <mat-slide-toggle [formControlName]="'estado'" [color]="'primary'">
+                                            {{selectedPublicacionForm.get('estado').value === true ? 'Active' :
+                                            'Disabled'}}
+                                        </mat-slide-toggle>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-auto flex-wrap">
+                                    <!-- Name, SKU & etc. -->
+                                    <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+
+
+
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Titulo de publicación</mat-label>
+                                            <input matInput [formControlName]="'tituloPublicacion'">
+                                        </mat-form-field>
+
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Descripción</mat-label>
+                                            <input matInput [formControlName]="'descripcionPublicacion'">
+                                        </mat-form-field>
+
+                                        <!-- Name -->
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Nombre del Servicio</mat-label>
+                                            <input matInput [formControlName]="'nombreServicio'">
+                                        </mat-form-field>
+
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Vendedora</mat-label>
+                                            <input matInput [formControlName]="'vendedor'">
+                                        </mat-form-field>
+
+
+                                    </div>
+
+                                    <!-- Cost, Base price, Tax & Price -->
+                                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+                                        <!-- categoria, Brand & Vendor -->
+
+
+                                        <mat-form-field class="w-3/3 pr-2">
+                                            <mat-label>Categoria</mat-label>
+                                            <mat-select [formControlName]="'categoria'">
+                                                <ng-container *ngFor="let categoria of categoriesServicio">
+                                                    <mat-option [value]="categoria.idCategoriaServicio">
+                                                        {{categoria.nombreCategoria}}
+                                                    </mat-option>
+                                                </ng-container>
+                                            </mat-select>
+                                        </mat-form-field>
+
+
+                                        <mat-form-field class="w-3/3 pr-2">
+                                            <mat-label>Tipo</mat-label>
+                                            <mat-select [formControlName]="'tipos'">
+                                                <ng-container *ngFor="let tipos of categoriesPublicacion">
+                                                    <mat-option [value]="tipos.idCategoria">
+                                                        {{tipos.nombreCategoria}}
+                                                    </mat-option>
+                                                </ng-container>
+                                            </mat-select>
+                                        </mat-form-field>
+
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Tiempo Servicio</mat-label>
+                                            <input type="text" matInput [formControlName]="'tiempoServicio'">
+                                        </mat-form-field>
+
+                                        <mat-form-field class="w-3/3 pr-2">
+                                            <mat-label>Stock</mat-label>
+                                            <input type="number" matInput [formControlName]="'cantidadDisponible'">
+                                        </mat-form-field>
+
+                                    </div>
+
+                                    <!-- Weight & Tags -->
+                                    <div class="flex flex-col w-full lg:w-1/4 sm:pl-8">
+
+                                        <mat-form-field class="w-3/3 pr-2">
+                                            <mat-label>Precio Inicial</mat-label>
+                                            <span matSuffix>$</span>
+                                            <input type="number" matInput [formControlName]="'precioInicialServicio'">
+                                        </mat-form-field>
+
+                                        <mat-form-field class="w-3/3 pr-2">
+                                            <mat-label>Precio Final</mat-label>
+                                            <span matSuffix>$</span>
+                                            <input type="number" matInput [formControlName]="'precioFinalServicio'">
+                                        </mat-form-field>
+
+                                        <mat-form-field class="w-3/3 pr-2">
+                                            <mat-label>Precio Fijo </mat-label>
+                                            <span matSuffix>$</span>
+                                            <input type="number" matInput [formControlName]="'precioFijoServicio'">
+                                        </mat-form-field>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex items-center justify-between w-full border-t px-8 py-4">
+                                <button class="-ml-4" mat-button [color]="'warn'" (click)="deleteselectedPublicacion()">
+                                    Delete
+                                </button>
+                                <div class="flex items-center">
+                                    <div class="flex items-center mr-4" *ngIf="flashMessage">
+                                        <ng-container *ngIf="flashMessage === 'success'">
+                                            <mat-icon class="text-green-500"
+                                                [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                            <span class="ml-2">Publicación Actualizada</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="flashMessage === 'error'">
+                                            <mat-icon class="text-red-500"
+                                                [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+                                            <span class="ml-2">A ocurrido un error! Intentalo nuevamente </span>
+                                        </ng-container>
+                                    </div>
+                                    <button mat-flat-button [color]="'primary'" (click)="checkLimitPubliActi()">
+                                        Editar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #noPublicaciones>
+                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No hay
+                    publicaciones
+                    disponibles!</div>
+            </ng-template>
+
+
+            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center"
+                *ngIf="banNoServiceFound">No se encontró esa publicación!
+            </div>
+        </div>
+    </div>

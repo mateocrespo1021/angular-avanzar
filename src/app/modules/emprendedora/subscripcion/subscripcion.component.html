@@ -1,0 +1,83 @@
+<div class="relative flex flex-col flex-auto min-w-0 overflow-hidden">
+
+    <!-- Header & Cards -->
+    <div class="relative pt-8 pb-12 sm:pt-20 sm:pb-24 px-6 sm:px-16 overflow-hidden">
+        <!-- Background - @formatter:off -->
+        <svg class="-z-1 absolute inset-0" viewBox="0 0 960 540" width="100%" height="100%"
+            preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="opacity-40 text-gray-200 dark:text-gray-800" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <!-- Header -->
+        <div class="flex flex-col items-center">
+            <h2 class="text-xl font-semibold">PLANES</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                Toma el control de tu productividad
+            </div>
+            <div class="mt-3 sm:text-2xl text-center tracking-tight text-secondary">
+                <div class="">Comience poco a poco y gratis, actualice a medida que avanza.</div>
+                <div class="">Toma el control de todo.</div>
+            </div>
+        </div>
+        <!-- Card 1  -->
+        <div class="flex justify-center mt-10 sm:mt-20">
+            <fuse-card class="flex flex-col lg:flex-row max-w-sm lg:max-w-240">
+                <div class="p-6 sm:p-8 lg:p-10">
+                    <div class="text-3xl font-bold">Tu membresia actual: {{membresiaActual.subscripcion.nombreSubscripcion}}</div>
+                    <div class="mt-2 leading-relaxed text-secondary">
+                        Aprenda de personas con ideas afines que están ansiosas por ganarse la vida construyendo cosas en la web.
+                        Renueve su plan y obtenga más espcios para publicaciones.
+                    </div>
+                     <div class="flex items-center mt-10">
+                        <div class="font-medium text-secondary">CARACTERÍSTICAS INCLUIDAS</div>
+                        <div class="flex-auto ml-2 border-b-2"></div>
+                    </div>
+                    Características 
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 mt-6">
+                        <div class="flex items-center">
+                            <mat-icon class="icon-size-5 text-primary"
+                                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                            <div class="ml-2">{{membresiaActual.subscripcion.nombreSubscripcion}}</div>
+                        </div>
+                        <div class="flex items-center">
+                            <mat-icon class="icon-size-5 text-primary"
+                                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                            <div class="ml-2">{{membresiaActual.subscripcion.numPublicaciones}} publicaciónes activas</div>
+                        </div>
+                        <div class="flex items-center">
+                            <mat-icon class="icon-size-5 text-primary"
+                                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                            <div class="ml-2">Funcionalidades Avanzadas</div>
+                        </div>
+                        <div class="flex items-center">
+                            <mat-icon class="icon-size-5 text-primary"
+                                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                            <div class="ml-2">Descuentos y ofertas</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Price -->
+                <div
+                    class="flex flex-col items-center p-8 lg:px-10 lg:py-12 lg:min-w-80 bg-gray-100 dark:bg-black dark:bg-opacity-10">
+                    <div class="flex items-center whitespace-nowrap">
+                        <div class="text-8xl font-extrabold tracking-tight">$ {{ membresiaActual.subscripcion.precio }}</div>
+                        <div class="ml-2 text-2xl font-semibold text-secondary">USD</div>
+                    </div>
+                    <div class="font-medium text-center text-secondary">
+                        <div>Tu membresia finaliza:</div>
+                        <div> {{ fechaFormateada }}</div>
+                    </div>
+                    <button class="w-full mt-8 lg:mt-auto" mat-flat-button [color]="'primary'">
+                        Renovar Membresia
+                    </button>
+                </div>
+
+                
+            </fuse-card>
+        </div>
+
+
+    </div>

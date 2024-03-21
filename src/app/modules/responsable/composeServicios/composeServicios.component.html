@@ -1,0 +1,153 @@
+
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6" *ngIf="publicacion">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Editar Publicaciones-Servicios</div>
+        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form class="flex flex-col flex-auto p-1 sm:p-8 overflow-y-auto" [formGroup]="composeForm"
+        #modalServicioNgForm="ngForm">
+        <div class="flex flex-col sm:flex-row p-8">
+
+            <!-- Product images and status -->
+            <div class="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
+
+            </div>
+
+            <div class="flex flex-auto flex-wrap">
+
+
+                <!-- Name, SKU & etc. -->
+                <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Titulo de publicación</mat-label>
+                        <input matInput formControlName="titulopubli" />
+
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Descripción</mat-label>
+                        <input matInput formControlName="descripcionpubli"/>
+                    </mat-form-field>
+
+                    <!-- Name -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Nombre del Servicio</mat-label>
+                        <input matInput formControlName="nombreServicio"/>
+
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Vendedora</mat-label>
+                        <input matInput readonly formControlName="vendedor"/>
+                    </mat-form-field>
+                </div>
+
+                <!-- Cost, Base price, Tax & Price -->
+                <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                    <!-- categoria, Brand & Vendor -->
+
+                    <mat-form-field class="w-3/3 pr-2">
+                        <mat-label>Categoría</mat-label>
+                        <mat-select formControlName="categoria" matInput>
+                            <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                                {{ categoria.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-3/3 pr-2">
+                        <mat-label>Tipo</mat-label>
+                        <input formControlName="tipo" matInput readonly>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Stock</mat-label>
+                        <input type="number" matInput formControlName="cantidad" />
+                    </mat-form-field>
+                    
+                </div>
+
+                <!-- Weight & Tags -->
+                <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                    
+                    <div class="flex">
+                        <mat-form-field class="w-2/3 pr-2">
+                            <mat-label>Precio desde:</mat-label>
+                            <input
+                                placeholder="Opcional"
+                                type="number"
+                                matInput
+                                [formControlName]="'precioInicialServicio'">
+                        </mat-form-field>
+                        <mat-form-field class="w-2/3 pl-2">
+                            <mat-label>Precio hasta:</mat-label>
+                            <input
+                                placeholder="Opcional"
+                                type="number"
+                                matInput
+                                [formControlName]="'precioFinalServicio'">
+                        </mat-form-field>
+
+                        
+                </div>
+                    <mat-form-field class="w-3/3 pr-2">
+                        <mat-label>Precio</mat-label>
+                        <span matSuffix>$</span>
+                        <input type="number" matInput formControlName="precio" />
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Tiempo Servicio</mat-label>
+                        <span matSuffix>minutos/horas.</span>
+                        <input
+                            type="text"
+                            matInput
+                            formControlName="tiempoServicio"
+                        />
+                    </mat-form-field>
+
+
+                    <mat-form-field class="w-full">
+                        <mat-label for="estado">Estado</mat-label>
+                        <mat-select formControlName="estado" matInput>
+                            <mat-option *ngFor="let estado of estados" [value]="estado.value">{{ estado.label }}</mat-option>
+                          </mat-select>
+                    </mat-form-field>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="-ml-2"></div>
+
+            <div class="flex items-center justify-between w-full border-t px-8 py-4">
+                <!-- Discard -->
+                <button id="datos" class="ml-auto sm:ml-0" mat-stroked-button (click)="discard()">
+                    Cancelar
+                </button>
+
+                <div class="flex items-center">
+                    <!-- Send -->
+                    <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="updateUser()">
+                        Editar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

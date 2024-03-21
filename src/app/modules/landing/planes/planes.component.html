@@ -1,0 +1,261 @@
+
+<div  class="flex flex-col items-center justify-center w-full h-full">
+
+    <nav class="sticky  w-full z-20 top-0 left-0 bg-white">
+        <div class="max-w-screen-xl flex flex-wrap  justify-between mx-auto p-4">
+            <a href="#" class="flex items-center">
+                <img src="../../../../assets/images/logo/avanzar.png" class="h-8 mr-3" alt="Flowbite Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap text-black">{{systemName}} </span>
+            </a>
+            <a class="mt-8 text-black"  [routerLink]="'/home'">
+                <span>Home</span>
+            </a>
+            <a class="mt-8 text-black"  [routerLink]="'/nosotros'">
+                <span>Nosotros</span>
+            </a>
+            <a class="mt-8 text-black" [routerLink]="'/planes'">
+                <span>Planes </span>
+            </a>
+            <a class="mt-8 text-black" [routerLink]="'/contactanos'">
+                <span>Contactanos</span>
+            </a>
+
+            
+            <div class="flex md:order-2  items-center ">
+                <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/sign-in'" style="margin-right:5px;">
+                    <span>Iniciar Sesión</span>
+                    <!-- <mat-icon class="ml-2 icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon> -->
+                </a>
+                <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/sign-up'">
+                    <span>Registrarse</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="relative flex flex-col flex-auto min-w-0 overflow-hidden">
+
+        <!-- Header & Cards -->
+        <div class="relative pt-8 pb-12 sm:pt-20 sm:pb-24 px-6 sm:px-16 overflow-hidden">
+            <!-- Background - @formatter:off -->
+            <svg class="-z-1 absolute inset-0"
+                 viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+                <g class="opacity-40 text-gray-200 dark:text-gray-800" fill="none" stroke="currentColor" stroke-width="100">
+                    <circle r="234" cx="196" cy="23"></circle>
+                    <circle r="234" cx="790" cy="491"></circle>
+                </g>
+            </svg>
+            <!-- @formatter:on -->
+            <!-- Header -->
+            <div class="flex flex-col items-center">
+                <h2 class="text-xl font-semibold">PLANES</h2>
+                <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                    Transformando Vidas, Cumpliendo Sueños
+                </div>
+                <div class="mt-3 sm:text-2xl text-center tracking-tight text-secondary">
+                    <div class="">Nuestros planes estratégicos se enfocan en empoderar a emprendedoras, brindar una manera de promover los productos y servicios que ofrecen.</div>
+                    <div class="">Únete a nosotros para crear un mundo mejor juntos.</div>
+                </div>
+
+            </div>
+            <!-- Cards -->
+            <div class="flex justify-center mt-10 sm:mt-20">
+                <div class="w-full max-w-sm md:max-w-7xl">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 lg:gap-y-0 md:gap-x-6">
+                        <!-- Card 1 -->
+                        <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10">
+                            <div class="text-4xl font-bold tracking-tight leading-tight">Gratis</div>
+                            <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Perfecto para emprendedoras que recién están iniciando en esta plataforma y comienzan a crecer.</div>
+                            <div class="w-8 h-1 my-10 rounded bg-accent"></div>
+                            <!-- Price -->
+                            <div class="flex items-baseline whitespace-nowrap">
+                                <div class="mr-2 text-2xl">Precio: USD $0.00</div>
+                                <div class="text-6xl font-semibold leading-tight tracking-tight">
+                                    <ng-container *ngIf="yearlyBilling">$6.00</ng-container>
+                                    <ng-container *ngIf="!yearlyBilling">$9.00</ng-container>
+                                </div>
+                            </div>
+                            <!-- Price details -->
+                            <div class="flex flex-col mt-2 text-secondary">
+                                <ng-container *ngIf="yearlyBilling">
+                                    <div>billed yearly</div>
+                                    <div><b>$9.00</b> billed monthly</div>
+                                </ng-container>
+                                <ng-container *ngIf="!yearlyBilling">
+                                    <div>billed monthly</div>
+                                    <div><b>$6.00</b> billed yearly</div>
+                                </ng-container>
+                            </div>
+                            <!-- CTA 
+                            <button
+                                class="fuse-mat-button-large mt-10"
+                                mat-stroked-button
+                                [color]="'primary'">
+                                Seleccionar plan
+                            </button>-->
+                            <!-- Features -->
+                            <div class="flex flex-col mt-12">
+                                <div class="font-semibold">Funciones principales, que incluyen:</div>
+                                <div class="mt-4 space-y-2">
+                                    <div class="flex">
+                                        <mat-icon
+                                            class="icon-size-5 text-green-600"
+                                            [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                        <div class="ml-2 leading-5"><b>3</b> publicaciones activas</div>
+                                    </div>
+                                    <div class="flex">
+                                        <mat-icon
+                                            class="icon-size-5 text-red-600"
+                                            [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>
+                                        <div class="ml-2 leading-5">No incluye cursos</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fuse-card>
+                        <!-- Card 2 -->
+                        <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10 ring-2 ring-primary overflow-visible">
+                            <div class="absolute inset-x-0 -top-4 flex items-center justify-center">
+                                <div class="flex items-center h-8 px-8 rounded-full font-medium text-center leading-none bg-primary text-on-primary">POPULAR</div>
+                            </div>
+                            <div class="text-4xl font-bold tracking-tight leading-tight">Premium Silver</div>
+                            <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Perfecto para emprendedoras en crecimiento y que desean tener mejor control de sus publicaciones.</div>
+                            <div class="w-8 h-1 my-10 rounded bg-accent"></div>
+                            <!-- Price -->
+                            <div class="flex items-baseline whitespace-nowrap">
+                                <div class="mr-2 text-2xl">Precio: USD $10.00</div>
+                                <div class="text-6xl font-semibold leading-tight tracking-tight">
+                                    <ng-container *ngIf="yearlyBilling">$12.00</ng-container>
+                                    <ng-container *ngIf="!yearlyBilling">$15.00</ng-container>
+                                </div>
+                            </div>
+                            <!-- Price details -->
+                            <div class="flex flex-col mt-2 text-secondary">
+                                <ng-container *ngIf="yearlyBilling">
+                                    <div>billed yearly</div>
+                                    <div><b>$15.00</b> billed monthly</div>
+                                </ng-container>
+                                <ng-container *ngIf="!yearlyBilling">
+                                    <div>billed monthly</div>
+                                    <div><b>$12.00</b> billed yearly</div>
+                                </ng-container>
+                            </div>
+                            <!-- CTA 
+                            <button
+                                class="fuse-mat-button-large mt-10"
+                                mat-flat-button
+                                [color]="'primary'">
+                                Start a free 14-day trial
+                            </button>-->
+                            <!-- Features -->
+                            <div class="flex flex-col mt-12">
+                                <div class="font-semibold">Funciones principales, que incluyen:</div>
+                                <div class="mt-4 space-y-2">
+                                    <div class="flex">
+                                        <mat-icon
+                                            class="icon-size-5 text-green-600"
+                                            [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                        <div class="ml-2 leading-5"><b>12</b> publicaciones activas</div>
+                                    </div>
+            
+                                    <div class="flex">
+                                        <mat-icon
+                                            class="icon-size-5 text-green-600"
+                                            [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                        <div class="ml-2 leading-5"><b>GRATIS</b> 3 cursos</div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </fuse-card>
+                        <!-- Card 3 -->
+                        <fuse-card class="flex-col max-w-sm md:max-w-none p-6 sm:py-12 sm:px-10 ring-2 ring-primary overflow-visible">
+                            <div class="absolute inset-x-0 -top-4 flex items-center justify-center">
+                                <div class="flex items-center h-8 px-8 rounded-full font-medium text-center leading-none bg-primary text-on-primary">PRÓXIMAMENTE</div>
+                            </div>
+                            <div class="text-4xl font-bold tracking-tight leading-tight">Premium Gold</div>
+                            <div class="mt-2 text-lg font-medium tracking-tight text-secondary">Perfecto para emprendedoras en crecimiento y que desean tener mejor control de sus publicaciones.</div>
+                            <div class="w-8 h-1 my-10 rounded bg-accent"></div>
+                            <!-- Price -->
+                            <div class="flex items-baseline whitespace-nowrap">
+                                <div class="mr-2 text-2xl">Precio: USD $<b>Proximamente</b></div>
+                                <div class="text-6xl font-semibold leading-tight tracking-tight">
+                                    <ng-container *ngIf="yearlyBilling">$12.00</ng-container>
+                                    <ng-container *ngIf="!yearlyBilling">$15.00</ng-container>
+                                </div>
+                            </div>
+                            <!-- Price details -->
+                            <div class="flex flex-col mt-2 text-secondary">
+                                <ng-container *ngIf="yearlyBilling">
+                                    <div>billed yearly</div>
+                                    <div><b>$15.00</b> billed monthly</div>
+                                </ng-container>
+                                <ng-container *ngIf="!yearlyBilling">
+                                    <div>billed monthly</div>
+                                    <div><b>$12.00</b> billed yearly</div>
+                                </ng-container>
+                            </div>
+                            <!-- CTA 
+                            <button
+                                class="fuse-mat-button-large mt-10"
+                                mat-flat-button
+                                [color]="'primary'">
+                                Start a free 14-day trial
+                            </button>-->
+                            <!-- Features -->
+                            <div class="flex flex-col mt-12">
+                                <div class="font-semibold">Funciones principales, que incluyen:</div>
+                                <div class="mt-4 space-y-2">
+                                    <div class="flex">
+                                        <mat-icon
+                                            class="icon-size-5 text-green-600"
+                                            [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                        <div class="ml-2 leading-5"><b>*</b> publicaciones</div>
+                                    </div>
+            
+                                    <div class="flex">
+                                        <mat-icon
+                                            class="icon-size-5 text-green-600"
+                                            [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                        <div class="ml-2 leading-5">Incluye cursos gratis</div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </fuse-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        
+        
+
+
+       
+        
+
+    
+    </div>
+
+    <footer class="absolute bottom-0 left-0 z-20 w-full p-4 bg-black border-t border-black shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+            
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a [routerLink]="'/nosotros'" class="hover:underline">{{systemName}}™</a>. All Rights Reserved.
+        </span>
+        <!--<ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6">About</a>
+            </li>
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+            </li>
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+            </li>
+            <li>
+                <a href="#" class="hover:underline">Contact</a>
+            </li>
+        </ul>-->
+    </footer>
+
+

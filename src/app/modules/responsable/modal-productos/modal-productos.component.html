@@ -1,0 +1,263 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+    <!-- Header -->
+    <div
+        class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
+    >
+        <div class="text-lg font-medium">Editar Producto</div>
+        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x-mark'"
+            ></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form
+        class="flex flex-col flex-auto p-1 sm:p-8 overflow-y-auto"
+        [formGroup]="selectedPublicacionForm"
+         #modalProductoNgForm="ngForm"
+    >
+        <div class="flex flex-col sm:flex-row p-8">
+           
+            <!-- Product images and status -->
+            <div class="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
+                
+            </div>
+
+            <div class="flex flex-auto flex-wrap">
+
+                
+                <!-- Name, SKU & etc. -->
+                <div class="flex flex-col w-full lg:w-4/4 sm:pl-8">
+                    <div class="p-8">
+                        <label class="block text-lg font-semibold mb-2" style="text-align: center;">Subir Imágenes</label>
+                        <div
+                          class="border-dashed border-2 border-gray-300 p-8 rounded-lg text-center cursor-pointer hover:border-blue-500 transition duration-300 ease-in-out"
+                          (dragover)="onDragOver($event)"
+                          (dragleave)="onDragLeave($event)"
+                          (drop)="onDrop($event)"
+                          (click)="fileInput.click()"
+                        >
+                          <input
+                            type="file"
+                            multiple
+                            (change)="onFileSelected($event)"
+                            accept="image/*"
+                            #fileInput
+                            class="hidden"
+                          >
+                          <div class="text-gray-400">
+                            <svg
+                              class="mx-auto h-12 w-12"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                d="M12 4v16m8-8H4"
+                              ></path>
+                            </svg>
+                            <p>Arrastra y suelta las imágenes aquí o haz clic para seleccionar.</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="mt-4 grid grid-cols-2 gap-4">
+                        <div *ngFor="let preview of imagePreviews; let i = index" class="relative">
+                          <img [src]="preview" alt="Uploaded Photo" class="w-full h-100 object-cover rounded-lg">
+                          <button (click)="removePhoto(i)" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full">Eliminar</button>
+                        </div>
+                      </div>
+                      
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Titulo de publicación</mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'tituloPublicacion'"
+                        />
+                        <mat-error *ngIf="selectedPublicacionForm.get('tituloPublicacion').hasError('required')">
+                            Este campo es requerido*
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Descripción</mat-label>
+                        <input
+                            matInput
+                            [formControlName]="'descripcionPublicacion'"
+                        />
+                    </mat-form-field>
+
+                    <!-- Name -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Nombre del Producto</mat-label>
+                        <input matInput [formControlName]="'nombreProducto'" />
+                        <mat-error *ngIf="selectedPublicacionForm.get('nombreProducto').hasError('required')">
+                            Este campo es requerido*
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Vendedora</mat-label>
+                        <input
+                            matInput
+                            readonly
+                            [formControlName]="'vendedor'"
+                        />
+                    </mat-form-field>
+                </div>
+
+                <!-- Cost, Base price, Tax & Price -->
+                <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                    <!-- categoria, Brand & Vendor -->
+
+                    <mat-form-field class="w-3/3 pr-2">
+                        <mat-label>Categoria</mat-label>
+                        <mat-select [formControlName]="'categoria'">
+                            <ng-container
+                                *ngFor="let categoria of categoriesProducto"
+                            >
+                                <mat-option
+                                    [value]="categoria.idCategoriaProducto"
+                                >
+                                    {{ categoria.nombreCategoria }}
+                                </mat-option>
+                            </ng-container>
+                        </mat-select>
+                        <mat-error *ngIf="selectedPublicacionForm.get('categoria').hasError('required')">
+                            Este campo es requerido*
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-3/3 pr-2">
+                        <mat-label>Tipo</mat-label>
+                        <mat-select [formControlName]="'tipos'">
+                            <ng-container
+                                *ngFor="let tipos of categoriesPublicacion"
+                            >
+                                <mat-option [value]="tipos.idCategoria">
+                                    {{ tipos.nombreCategoria }}
+                                </mat-option>
+                            </ng-container>
+                        </mat-select>
+                        <mat-error *ngIf="selectedPublicacionForm.get('tipos').hasError('required')">
+                            Este campo es requerido*
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-3/3 pr-2">
+                        <mat-label>Precio</mat-label>
+                        <span matSuffix>$</span>
+                        <input
+                            type="number"
+                            matInput
+                            [formControlName]="'precioProducto'"
+                        />
+                        <mat-error *ngIf="selectedPublicacionForm.get('precioProducto').hasError('required')">
+                            Este campo es requerido*
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Weight & Tags -->
+                <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                    <mat-form-field class="w-full">
+                        <mat-label>Stock</mat-label>
+                        <input
+                            type="number"
+                            matInput
+                            [formControlName]="'cantidadDisponible'"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full">
+                        <mat-label>Peso</mat-label>
+                        <span matSuffix>ml/lbs/kg</span>
+                        <input
+                            type="text"
+                            matInput
+                            [formControlName]="'pesoProducto'"
+                        />
+                    </mat-form-field>
+
+                   
+                        <span class="font-semibold mb-2">Estado del producto</span>
+                        <br>
+                        <mat-slide-toggle 
+                            [formControlName]="'estado'"
+                            [color]="'primary'"
+                        >
+                            {{
+                                selectedPublicacionForm.get("estado").value === true
+                                    ? "Active"
+                                    : "Disabled"
+                            }}
+                        </mat-slide-toggle>
+                    
+                </div>
+            </div>
+        </div>
+
+      
+          
+          
+          
+          
+
+        <!-- Actions -->
+        <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
+        >
+            <div class="-ml-2"></div>
+
+            <div
+                class="flex items-center justify-between w-full border-t px-8 py-4"
+            >
+                <!-- Discard -->
+                <button
+                    id="datos"
+                    class="ml-auto sm:ml-0"
+                    mat-stroked-button
+                    (click)="discard()"
+                >
+                    Cancelar
+                </button>
+
+                <div class="flex items-center">
+                    <div class="flex items-center mr-4" *ngIf="flashMessage">
+                        <ng-container *ngIf="flashMessage === 'success'">
+                            <mat-icon
+                                class="text-green-500"
+                                [svgIcon]="'heroicons_outline:check'"
+                            ></mat-icon>
+                            <span class="ml-2">Registro Exitoso</span>
+                        </ng-container>
+                        <ng-container *ngIf="flashMessage === 'error'">
+                            <mat-icon
+                                class="text-red-500"
+                                [svgIcon]="'heroicons_outline:x-mark'"
+                            ></mat-icon>
+                            <span class="ml-2"
+                                >A ocurrido un error! Intentalo nuevamente</span
+                            >
+                        </ng-container>
+                    </div>
+                    <!-- Send -->
+                    <button
+                        class="order-first sm:order-last"
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="send()"
+                    >
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

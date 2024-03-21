@@ -1,0 +1,130 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="securityForm" #securityNgForm="ngForm">
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Cambia tu contraseña</div>
+            <div class="text-secondary">¡Solo puedes cambiar tu contraseña dos veces en un período de 24 horas!</div>
+        </div>
+        <fuse-alert *ngIf="showAlertCurrentPas" [appearance]="'outline'" [showIcon]="true"
+            [type]="alertCurrentPass.type" [@shake]="alertCurrentPass.type === 'error'" class="w-full">
+            {{ alertCurrentPass.message }}
+        </fuse-alert>
+
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Current password -->
+
+            <div class="sm:col-span-4">
+
+                <mat-form-field class="w-full">
+                    <mat-label>Contraseña Anterior</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
+                    <input id="password" matInput type="password" [formControlName]="'currentPassword'" #passwordField
+                        maxlength="8" pattern="^(?!.*\s).*$" />
+                    <button mat-icon-button type="button" (click)="
+                        passwordField.type === 'password'
+                            ? (passwordField.type = 'text')
+                            : (passwordField.type = 'password')
+                    " matSuffix>
+                        <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                        <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                            [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                    </button>
+                    <mat-error *ngIf="securityForm.get('currentPassword').hasError('required')">Este campo es
+                        requerido</mat-error>
+                    <mat-error
+                        *ngIf="securityForm.get('currentPassword').hasError('longitudInvalida') && (!securityForm.get('currentPassword').hasError('pattern'))">La
+                        contraseña debe contener 8 dígitos</mat-error>
+                    <mat-error *ngIf="securityForm.get('currentPassword').hasError('pattern')">Contraseña
+                        inválida</mat-error>
+                </mat-form-field>
+                <fuse-alert *ngIf="showAlertPassUpda" [appearance]="'outline'" [showIcon]="true"
+                    [type]="alertUpdaPass.type" [@shake]="alertUpdaPass.type === 'error'" class="w-full">
+                    {{ alertUpdaPass.message }}
+                </fuse-alert>
+            </div>
+
+            <!-- New password -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="w-full">
+                    <mat-label>Contraseña Nueva</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
+                    <input id="newPassword" matInput type="password" [formControlName]="'newPassword'" #newPass
+                        maxlength="8" pattern="^(?!.*\s).*$" />
+                    <button mat-icon-button type="button" (click)="
+                            newPass.type === 'password'
+                            ? (newPass.type = 'text')
+                            : (newPass.type = 'password')
+                    " matSuffix>
+                        <mat-icon class="icon-size-5" *ngIf="newPass.type === 'password'"
+                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                        <mat-icon class="icon-size-5" *ngIf="newPass.type === 'text'"
+                            [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                    </button>
+                    <mat-error *ngIf="securityForm.get('newPassword').hasError('required')">Este campo es
+                        requerido</mat-error>
+                    <mat-error *ngIf="securityForm.get('newPassword').hasError('longInvalid') ">
+                        {{longPass}} </mat-error>
+                    <mat-error
+                        *ngIf="securityForm.get('newPassword').hasError('longitudInvalida') && (!securityForm.get('newPassword').hasError('pattern'))">La
+                        contraseña debe contener 8 dígitos</mat-error>
+                    <mat-error *ngIf="securityForm.get('newPassword').hasError('pattern')">Contraseña
+                        inválida</mat-error>
+                    <div class=" absolute mt-18 -ml-12" *ngIf="showAlertPassSecu"> Seguridad de la contraseña: <label
+                            [class]="longPass === 'Fuerte' ? 'font-extrabold text-green-600' : ''">{{longPass}}</label>
+                    </div>
+
+
+                </mat-form-field>
+            </div>
+            <!--Rep password-->
+
+            <div class="sm:col-span-4">
+                <mat-form-field class="w-full">
+                    <mat-label>Repita Contraseña</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
+                    <input id="repPassword" matInput type="password" [formControlName]="'repPassword'" #repPass
+                        maxlength="8" pattern="^(?!.*\s).*$" />
+                    <button mat-icon-button type="button" (click)="
+                            repPass.type === 'password'
+                            ? (repPass.type = 'text')
+                            : (repPass.type = 'password')
+                    " matSuffix>
+                        <mat-icon class="icon-size-5" *ngIf="repPass.type === 'password'"
+                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                        <mat-icon class="icon-size-5" *ngIf="repPass.type === 'text'"
+                            [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                    </button>
+                    <mat-error *ngIf="securityForm.get('repPassword').hasError('required')">Este campo es
+                        requerido</mat-error>
+                    <mat-error
+                        *ngIf="securityForm.get('repPassword').hasError('longitudInvalida') && (!securityForm.get('repPassword').hasError('pattern'))">La
+                        contraseña debe contener 8 dígitos</mat-error>
+                    <mat-error *ngIf="securityForm.get('repPassword').hasError('pattern')">Contraseña
+                        inválida</mat-error>
+                    <div class=" absolute mt-18 -ml-12" *ngIf="showAlertPassEqu"><label
+                            [class]="equPass === 'Las contraseñas coinciden' ? 'font-extrabold text-green-500' : 'text-orange-500'">{{equPass}}</label>
+                    </div>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button mat-stroked-button type="button">
+                Cancelar
+            </button>
+            <button class="ml-4" mat-flat-button type="button" [disabled]="!isFormValid()"
+                (click)="changePass(securityForm.get('currentPassword').value, securityForm.get('newPassword').value, securityForm.get('repPassword').value)"
+                [color]="'primary'">Guardar
+            </button>
+        </div>
+    </form>
+
+</div>

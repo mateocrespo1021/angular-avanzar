@@ -1,0 +1,100 @@
+/* Estilos para el carrusel */
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .slides {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+  
+  .slide {
+    flex: 0 0 100%;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Estilos para los botones de navegación */
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  /* Estilo para la diapositiva activa */
+  .slide.active {
+    display: block;
+  }
+  
+
+  .solo-una-tarjeta {
+    width: 100%; /* Ancho completo cuando solo hay una tarjeta */
+}
+
+.price-divider {
+  border: none;
+  border-top: 3px solid #333; 
+  margin: 5px 0; 
+}
+
+/* En tu archivo de estilos CSS */
+.card-with-image {
+  height: 300px; /* Ajusta esta altura según tus necesidades */
+}
+
+
+
+.button-row {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row; 
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+
+.historial {
+  position: absolute;
+  background-color: rgb(241, 240, 240);
+  color: #6366f1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-height: 150px;
+  width: 250px;
+  margin-top: 10px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.custombtn {
+  width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.btn{
+  border-radius: 0 10px 10px 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  background-color:#ffff;
+  color: #6366f1;
+}

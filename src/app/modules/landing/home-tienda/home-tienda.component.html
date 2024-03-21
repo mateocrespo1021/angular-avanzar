@@ -1,0 +1,55 @@
+<nav class="absolute  w-full z-20 top-0 left-0 ">
+    <div class="max-w-screen-xl flex flex-wrap  justify-between mx-auto p-4">
+        <a href="#" class="flex items-center">
+            <img src="../../../../assets/images/logo/avanzar.png" class="h-8 mr-3" alt="Flowbite Logo">
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">{{systemName}}</span>
+        </a>
+        <a class="mt-8 text-white" [routerLink]="'/home'">
+            <span>Home</span>
+        </a>
+        <a class="mt-8 text-white" [routerLink]="'/nosotros'">
+            <span>Nosotros</span>
+        </a>
+        <a class="mt-8 text-white" [routerLink]="'/planes'">
+            <span>Planes </span>
+        </a>
+        <a class="mt-8 text-white" [routerLink]="'/contactanos'">
+            <span>Contactanos</span>
+        </a>
+
+
+        <div class="flex md:order-2  items-center ">
+            <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/sign-in'" style="margin-right:5px;">
+                <span>Iniciar Sesión</span>
+                <!-- <mat-icon class="ml-2 icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon> -->
+            </a>
+            <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/sign-up'">
+                <span>Registrarse</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Cabezera -->
+
+<div class="bgimage">
+
+    <div class="text">
+        <div class="text-8xl font-extrabold tracking-tight leading-tight">
+            {{systemName}}
+        </div>
+
+        <div class="subtitulo text-4xl  mt-4 text-xl text-secondary ">
+            <p>Empoderando Sueños, Impulsando Emprendedoras: Tu Éxito, Nuestra Inspiración.</p>
+        </div>
+
+        <div class="subtitulo text-4xl  mt-4 text-xl text-secondary ">
+            <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/avanzar-shop'">
+                <span>Ir a  la Tienda</span>
+            </a>
+        </div>
+
+    </div>
+
+</div>

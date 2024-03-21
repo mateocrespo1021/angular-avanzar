@@ -1,0 +1,158 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Detalles de la Publicación</div>
+        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form class="flex flex-col flex-auto p-4 sm:p-8 overflow-y-auto" [formGroup]="selectedPublicacionForm">
+        <div class="flex flex-col sm:flex-row mb-4 sm:mb-0 sm:mr-4">
+            <!-- Imagen y contenedor de información -->
+            <div class="flex flex-col items-center">
+                <!-- Imagen -->
+                <div class="w-120 h-100 border rounded overflow-hidden mb-2">
+                    <ng-container *ngIf="selectedPublicacionForm.get('imagenes').value.length; else noImage">
+                        <img class="w-full h-full object-cover" [src]="selectedPublicacionForm.get('imagenes').value[selectedPublicacionForm.get('currentImageIndex').value]">
+                    </ng-container>
+                    <ng-template #noImage>
+                        <span class="flex items-center min-h-20 text-lg font-semibold">NO IMAGEN</span>
+                    </ng-template>
+                </div>
+                <!-- Botones de cambio de imagen -->
+                <div class="flex items-center" *ngIf="selectedPublicacionForm.get('imagenes').value.length">
+                    <button mat-icon-button (click)="cycleImages(false)">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-left'"></mat-icon>
+                    </button>
+                    <span class="font-sm mx-2">{{selectedPublicacionForm.get('currentImageIndex').value + 1}} of {{selectedPublicacionForm.get('imagenes').value.length}}</span>
+                    <button mat-icon-button (click)="cycleImages(true)">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>
+                    </button>
+                </div>
+
+                <div class="w-full sm:w-140 text-center">
+                    <h2 class="text-lg font-semibold mb-2">Descripción</h2>
+                    <div class="font-sm max-h-40 overflow-y-auto">
+                        {{ selectedPublicacionForm.get('descripcionPublicacion').value }}
+                    </div>
+                </div>
+                
+                
+            </div>
+
+            <!-- Contenedor de información del vendedor -->
+            <div class="flex flex-col flex-auto">
+                <!-- Name, SKU & etc. -->
+
+                <fuse-card class="flex flex-col items-center max-w-90 w-full p-8 pb-6 sm:mx-4 filter-info vendedor-card">
+                    
+                        <!-- Imagen del avatar o icono por defecto -->
+                        <img
+                          class="w-28 h-28 rounded-full"
+                          [src]="selectedPublicacionForm.get('avatar').value"
+                          alt="Card cover image"
+                          *ngIf="selectedPublicacionForm.get('avatar').value"
+
+                          width="300" 
+                          height="200"  />
+                        <mat-icon
+                          class="w-28 h-28 rounded-full "
+                          *ngIf="!selectedPublicacionForm.get('avatar').value"
+                          [svgIcon]="'heroicons_solid:user-circle'"
+                        ></mat-icon>
+                      
+                    <div class="text-1xl font-semibold leading-tight text-center mt-8" [textContent]="selectedPublicacionForm.get('vendedor').value">
+                    </div>                
+                    <hr class="w-full border-t mt-8 mb-0">
+
+                    <!-- Nombre de negocio -->
+
+                    <div class="flex flex-col items-center">
+                            
+                        <mat-icon
+                        class="icon-size-5 transition-transform ease-in-out duration-150 rotate-0"
+
+                        [svgIcon]="
+                            'mat_solid:add_business'
+                        "
+                    ></mat-icon>
+                        <span class="text-sm font-medium text-secondary" [textContent]="selectedPublicacionForm.get('emprendimiento').value"></span>
+                    </div>
+                    <br>
+                    <!-- Email -->
+                    <div class="flex flex-col items-center">
+                            
+                        <mat-icon
+                        class="icon-size-5 transition-transform ease-in-out duration-150 rotate-0"
+
+                        [svgIcon]="
+                            'mat_solid:email'
+                        "
+                    ></mat-icon>
+                        <span class="text-sm font-medium text-secondary" [textContent]="selectedPublicacionForm.get('email').value"></span>
+                    </div>
+                    <div class="w-full flex items-center justify-between my-4 px-2 grid grid-cols-2 gap-3">
+                        
+                        
+
+                        <div class="flex flex-col items-center">
+                            <mat-icon
+                            class="icon-size-5 transition-transform ease-in-out duration-150 rotate-0"
+
+                            [svgIcon]="
+                                'mat_solid:supervised_user_circle'
+                            "
+                        ></mat-icon>
+                        <span class="text-sm font-medium text-secondary" [textContent]="selectedPublicacionForm.get('genero').value"></span>
+                        </div>
+
+
+                        <div class="flex flex-col items-center">
+                            <mat-icon
+                            class="icon-size-5 transition-transform ease-in-out duration-150 rotate-0"
+
+                            [svgIcon]="
+                                'mat_solid:contact_phone'
+                            "
+                        ></mat-icon>
+                        <span class="text-sm font-medium text-secondary" [textContent]="selectedPublicacionForm.get('contacto').value"></span>
+                        </div>
+                    </div>
+                    <hr class="w-full border-t mt-0 mb-8">
+                    <div class="text-center text-secondary">
+                        <div class="text-sm font-medium text-secondary" [textContent]="selectedPublicacionForm.get('descripcionUsuario').value"></div>
+                      </div>
+                      
+                    <br>
+                      <div class="flex flex-col items-center">
+                        
+                        <a
+                                        [href]="
+                                            'https://api.whatsapp.com/send?phone=593' +
+                                            selectedPublicacionForm.get('contacto').value +
+                                            '&text=Hola, ' +
+                                            selectedPublicacionForm.get('vendedor').value +
+                                            '%20quisiera%20adquirir%20el%20' +
+                                            selectedPublicacionForm.get('nombreCategoria').value+
+                                            '%20de%20la%20publicacion%20' +
+                                            selectedPublicacionForm.get('tituloPublicacion').value
+                                        "
+                                        target="_blank"
+                                        class="px-3 mr-1"
+                                        mat-button
+                                        [color]="'primary'"
+                                    >
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:phone-arrow-up-right'"></mat-icon>
+                            <span class="ml-2">Contactar</span>
+                        </a>
+
+                    </div>
+
+
+                </fuse-card>
+        </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,281 @@
+
+<div  class="flex flex-col items-center justify-center w-full h-full">
+
+    <nav class="sticky  w-full z-20 top-0 left-0 bg-white">
+        <div class="max-w-screen-xl flex flex-wrap  justify-between mx-auto p-4">
+            <a href="#" class="flex items-center">
+                <img src="../../../../assets/images/logo/avanzar.png" class="h-8 mr-3" alt="Flowbite Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap text-black">{{systemName}}</span>
+            </a>
+            <a class="mt-8 text-black"  [routerLink]="'/home'">
+                <span>Home</span>
+            </a>
+            <a class="mt-8 text-black"  [routerLink]="'/nosotros'">
+                <span>Nosotros</span>
+            </a>
+            <a class="mt-8 text-black" [routerLink]="'/planes'">
+                <span>Planes </span>
+            </a>
+            <a class="mt-8 text-black" [routerLink]="'/contactanos'">
+                <span>Contactanos</span>
+            </a>
+
+            
+            <div class="flex md:order-2  items-center ">
+                <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/sign-in'" style="margin-right:5px;">
+                    <span>Iniciar Sesión</span>
+                    <!-- <mat-icon class="ml-2 icon-size-5" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon> -->
+                </a>
+                <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/sign-up'">
+                    <span>Registrarse</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+
+                
+
+                
+
+
+
+
+    <!-- Datos sobre la fundacion -->
+    <div class="container-fundation" >
+        <div class="container-conten" >
+            <div class="container-fundation-info" >
+                <div class="flex flex-col items-center px-6 py-10 sm:px-16 sm:pt-18 sm:pb-20 bg-white dark:bg-gray-800">
+                    <div class="text-8xl font-extrabold tracking-tight leading-tight">
+                    
+                        <p>¿Quiénes somos?</p>
+                    </div>
+                    <div class="subtitulo text-4xl  mt-4 text-xl text-secondary text-center">
+                        En {{systemName}}, estamos comprometidas con el empoderamiento de mujeres emprendedoras
+                        como tú. <br>
+                        Nuestra misión es brindarte el apoyo, los recursos y las oportunidades que necesitas para
+                        alcanzar tus metas en el mundo empresarial.
+                    </div>
+
+                    <!-- Informacion -->
+                    <div class="w-full max-w-7xl">
+                       
+
+                        <div
+                            class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16 w-full mt-12 sm:mt-16">
+                            <div>
+                                <span class="flex items-center justify-center w-12 h-12 rounded bg-primary">
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:user'"></mat-icon>
+                                </span>
+                                <div class="mt-4 text-xl font-medium">"Mujeres Emprendedoras"</div>
+                                <div class="mt-2 leading-6 text-secondary">
+                                    Explora nuestro catálogo diverso de productos artesanales y diseños originales
+                                    creados por mujeres emprendedoras. Encuentra la inspiración que buscas y apoya a
+                                    talentosas líderes en sus negocios.
+                                </div>
+                            </div>
+                            <div>
+                                <span class="flex items-center justify-center w-12 h-12 rounded bg-primary">
+                                    <mat-icon class="text-white"
+                                        [svgIcon]="'heroicons_outline:building-storefront'"></mat-icon>
+                                </span>
+                                <div class="mt-4 text-xl font-medium">"Tienda de Productos Únicos"</div>
+                                <div class="mt-2 leading-6 text-secondary">
+                                    Nuestra tienda en línea ofrece una selección única de artículos que destacan por
+                                    su
+                                    originalidad y calidad. Cada compra respalda el trabajo de mujeres emprendedoras
+                                    y
+                                    sus esfuerzos por lograr un futuro inclusivo. </div>
+                            </div>
+                            <div>
+                                <span class="flex items-center justify-center w-12 h-12 rounded bg-primary">
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:arrow-path'"></mat-icon>
+                                </span>
+                                <div class="mt-4 text-xl font-medium">"Empoderando a Mujeres"</div>
+                                <div class="mt-2 leading-6 text-secondary">
+                                    En {{systemName}}, creemos en el poder del comercio justo para empoderar a mujeres
+                                    alrededor del mundo. Con tu apoyo, estamos impulsando un cambio positivo en la
+                                    vida
+                                    de estas talentosas emprendedoras. </div>
+                            </div>
+                            <div>
+                                <span class="flex items-center justify-center w-12 h-12 rounded bg-primary">
+                                    <mat-icon class="text-white" [svgIcon]="'heroicons_outline:light-bulb'"></mat-icon>
+                                </span>
+                                <div class="mt-4 text-xl font-medium">"Creatividad con Propósito"</div>
+                                <div class="mt-2 leading-6 text-secondary">
+                                    Detrás de cada producto se esconde una historia de pasión y perseverancia.
+                                    Descubre
+                                    el significado detrás de los diseños, y comparte la inspiración que solo
+                                    encuentras
+                                    en nuestra comunidad. </div>
+                            </div>
+                            <div>
+                                <span class="flex items-center justify-center w-12 h-12 rounded bg-primary">
+                                    <mat-icon class="text-white"
+                                        [svgIcon]="'heroicons_outline:globe-europe-africa'"></mat-icon>
+                                </span>
+                                <div class="mt-4 text-xl font-medium">"Comunidad Global {{systemName}}"</div>
+                                <div class="mt-2 leading-6 text-secondary">
+                                    Unimos fuerzas en nuestra comunidad global para avanzar hacia un mundo donde la
+                                    igualdad económica sea una realidad. Juntas, creamos oportunidades reales y un
+                                    futuro más justo. </div>
+                            </div>
+                            <div>
+                                <span class="flex items-center justify-center w-12 h-12 rounded bg-primary">
+                                    <mat-icon class="text-white"
+                                        [svgIcon]="'heroicons_outline:chart-bar-square'"></mat-icon>
+                                </span>
+                                <div class="mt-4 text-xl font-medium">"Impacto Social Positivo"</div>
+                                <div class="mt-2 leading-6 text-secondary">
+                                    Cada compra en nuestra tienda contribuye a proyectos con corazón y apoyo a
+                                    comunidades. Te invitamos a unirte a nuestra misión de empoderar sueños y
+                                    promover
+                                    un cambio positivo. </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div
+                                                class="flex flex-col items-center px-6 py-10 sm:px-16 sm:pt-18 sm:pb-20 bg-white dark:bg-gray-800">
+                                                <div
+                                                    class="text-4xl font-extrabold tracking-tight leading-tight text-center">
+                                                    {{systemName}} capacita a mujeres emprendedoras <br>y presta
+                                                    apoyo
+                                                    a los niños en Ecuador.
+                                                </div>
+                                                <div
+                                                    class="subtitulo text-4xl  mt-4 text-xl text-secondary text-center">
+                                                    <p>
+
+                                                        Estamos orgullosos de poder decir que contribuimos a 6 de los 17
+                                                        Objetivos de Desarrollo Sostenible de las Naciones Unidas. </p>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+                                            <fuse-card
+                                                class="flex flex-col md:flex-row max-w-300 md:max-w-300 w-full filter-testimonial">
+                                                <div class="flex flex-col flex-auto m-8">
+                                                    <div class="text-lg font-medium text-primary mt-4">
+                                                        &#8212; MISION
+                                                    </div>
+                                                    <div class="text-base italic leading-relaxed">
+                                                        La misión de {{systemName}} es impulsar el progreso social
+                                                        y económico en Cuenca mediante el empoderamiento de mujeres
+                                                        emprendedoras y el respaldo integral a niños en situación
+                                                        vulnerable. Nuestro compromiso es proporcionar a las mujeres las
+                                                        herramientas, conocimientos y oportunidades necesarias para
+                                                        desarrollar sus capacidades empresariales, fomentar su autonomía
+                                                        y contribuir al crecimiento económico local.
+
+                                                        Además, nos dedicamos a garantizar que cada niño en situación
+                                                        vulnerable en Cuenca acceda a educación de calidad, atención
+                                                        médica adecuada, alimentación nutritiva y un entorno seguro que
+                                                        les permita crecer y desarrollarse plenamente. Nuestra misión
+                                                        impulsa la transformación de vidas a través de la educación, el
+                                                        cuidado y el apoyo emocional, sentando las bases para un futuro
+                                                        lleno de oportunidades y logros en la ciudad.
+
+                                                        Mediante nuestra labor, aspiramos a crear un impacto duradero en
+                                                        la sociedad cuencana, promoviendo la equidad de género, el
+                                                        desarrollo sostenible y el bienestar infantil. Estamos
+                                                        comprometidos en inspirar y movilizar a la comunidad para
+                                                        colaborar en la edificación de una Cuenca más inclusiva, justa y
+                                                        próspera para todos sus habitantes.
+                                                    </div>
+
+                                                </div>
+                                                <div class="flex-0 w-80 md:w-50">
+
+                                                    <img class="w-full h-full object-cover"
+                                                        src="https://image.jimcdn.com/app/cms/image/transf/dimension=1920x400:format=jpg/path/se35158dc3322232c/image/i8b7d7ea44b1f94bb/version/1654698701/image.jpg"
+                                                        alt="Card cover image">
+                                                </div>
+
+                                            </fuse-card>
+
+
+
+
+
+                                            <fuse-card
+                                                class="flex flex-col md:flex-row max-w-300 md:max-w-300 w-full filter-testimonial">
+
+                                                <div class="flex-0 w-80 md:w-50">
+
+                                                    <img class="w-full h-full object-cover"
+                                                        src="https://image.jimcdn.com/app/cms/image/transf/dimension=1920x400:format=jpg/path/se35158dc3322232c/image/ia9dfc71f032e95e6/version/1654698701/image.jpg"
+                                                        alt="Card cover image">
+                                                </div>
+                                                <div class="flex flex-col flex-auto m-8">
+                                                    <div class="text-lg font-medium text-primary mt-4">
+                                                        &#8212; VISION
+                                                    </div>
+                                                    <div class="text-base italic leading-relaxed">
+                                                        La visión de {{systemName}} es liderar la transformación
+                                                        positiva de la sociedad cuencana, donde las mujeres
+                                                        emprendedoras sean catalizadoras de cambio y motores del
+                                                        desarrollo económico, y donde cada niño en situación vulnerable
+                                                        alcance su máximo potencial en un entorno seguro y propicio.
+
+                                                        Visualizamos un futuro en el que las mujeres respaldadas por
+                                                        nuestra fundación se conviertan en modelos a seguir, generando
+                                                        un impacto notable en sus comunidades y contribuyendo de manera
+                                                        significativa al progreso económico y social de Cuenca. Buscamos
+                                                        destacar por nuestra metodología innovadora de capacitación y
+                                                        apoyo, que fomenta la creatividad, la independencia y el
+                                                        liderazgo femenino.
+
+                                                        En última instancia, nuestra visión es consolidar un futuro en
+                                                        el que {{systemName}} sea un actor clave en la
+                                                        transformación de una sociedad inclusiva, justa y próspera,
+                                                        donde las mujeres y los niños sean protagonistas del continuo
+                                                        crecimiento y evolución de Cuenca.
+                                                    </div>
+
+                                                </div>
+                                            </fuse-card>
+                </div>
+        
+        </div>
+        </div>
+
+
+
+        <footer class="absolute bottom-0 left-0 z-20 w-full p-4 bg-black border-t border-black shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+            
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">{{systemName}}™</a>. All Rights Reserved.
+            </span>
+            <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6">About</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </footer>
+        
+
+    
+    </div>
+</div>
+
+

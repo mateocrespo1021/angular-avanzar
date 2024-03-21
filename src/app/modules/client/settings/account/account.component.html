@@ -1,0 +1,185 @@
+<div class="w-full max-w-3xl">
+    <!-- Form -->
+    <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+
+        <fuse-alert class="mt-8" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+            [@shake]="alert.type === 'error'">
+            {{alert.message}}
+        </fuse-alert>
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Perfil</div>
+            <div class="text-secondary">
+                La siguiente información se muestra públicamente, ¡ten cuidado!
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <br>
+            <br>
+            <div class="sm:col-span-4">
+                <div class="-mt-18 lg:-mt-18 rounded-full">
+                    
+                    <!-- Mostrar el ícono de usuario si no hay una imagen de perfil -->
+                    <mat-icon class="w-32 h-32 rounded-full ring-4 ring-bg-card" *ngIf="!accountForm.get('avatar').value"
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                
+                    <!-- Mostrar la imagen de perfil si está definida -->
+                    <img [src]="accountForm.get('avatar').value" alt="User avatar"
+                        class="w-32 h-32 rounded-full ring-4 ring-bg-card"
+                        *ngIf="accountForm.get('avatar').value">
+                </div>
+                <div class="mt-3">
+
+                    <input type="file" accept="image/*" (change)="onFileSelected($event)">
+
+                </div>
+            </div>
+
+
+            <!-- Name -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Primer Nombre</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'mat_solid:person_pin'" matPrefix></mat-icon>
+                    <input [formControlName]="'Firstname'" matInput />
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Segundo Nombre</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'mat_solid:person_pin'" matPrefix></mat-icon>
+                    <input [formControlName]="'Secondname'" matInput />
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Primer Apellido</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'mat_solid:person_pin'" matPrefix></mat-icon>
+                    <input [formControlName]="'FirstSurname'" matInput />
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Segundo Apellido</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'mat_solid:person_pin'" matPrefix></mat-icon>
+                    <input [formControlName]="'SecondSurname'" matInput />
+                </mat-form-field>
+            </div>
+
+
+
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Rol Usuario</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
+                    <input readonly [formControlName]="'rol'" matInput />
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Género</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:users'" matPrefix></mat-icon>
+                    <input [formControlName]="'genero'" matInput />
+                </mat-form-field>
+            </div>
+
+            <!-- Username -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-emphasized-affix w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Usuario</mat-label>
+                    <div class="text-secondary" matPrefix>evamarket.com/</div>
+                    <input readonly [formControlName]="'username'" matInput />
+                </mat-form-field>
+            </div>
+
+
+            <!-- About -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Sobre mí</mat-label>
+                    <textarea matInput [formControlName]="'description'" matInput cdkTextareaAutosize
+                        [cdkAutosizeMinRows]="5"></textarea>
+                </mat-form-field>
+                <div class="mt-1 text-md text-hint">Breve descripción de su perfil. Se permite texto y Emoji.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Información Personal</div>
+            <div class="text-secondary">
+                Datos de comunicación en caso de que queramos ponernos en
+                contacto con usted. Se mantendrán en privado.
+            </div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Email -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>E-mail</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:envelope'" matPrefix></mat-icon>
+                    <input [formControlName]="'email'" matInput />
+                </mat-form-field>
+            </div>
+            <!-- Phone -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Celular</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:phone'" matPrefix></mat-icon>
+                    <input [formControlName]="'phone'" matInput />
+                </mat-form-field>
+            </div>
+            <!-- Country -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>País</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:map-pin'" matPrefix></mat-icon>
+                    <mat-select [formControlName]="'nationality'" matInput>
+                        <mat-option *ngFor="let pais of paises" [value]="pais.value">{{ pais.label }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+
+
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Dirección</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:map-pin'" matPrefix></mat-icon>
+                    <input [formControlName]="'address'" matInput />
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-2">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input [formControlName]="'dateBirth'" matInput readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button mat-stroked-button type="button" (click)="redirectToHome()">Cancel</button>
+            <button class="ml-4" mat-flat-button type="submit" [color]="'primary'">
+                Save
+            </button>
+        </div>
+    </form>
+</div>

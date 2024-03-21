@@ -1,0 +1,69 @@
+<ng-container fuseCard>
+    <hr class="border-b m-0">
+    <div class="flex flex-col mx-4 sm:mx-8 mt-6 mb-3">
+        <div class="flex items-start">
+            <img class="w-16 h-12 rounded-full mr-4" *ngIf="user.avatar" [src]="user.avatar" alt="User avatar">
+                <mat-icon class="icon-size-12" *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                <mat-icon>
+                    <p></p>
+                </mat-icon>
+            <form action="" [formGroup]="createCommintForm" class="w-full" #modalCommitNgForm="ngForm">
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                    <textarea matInput [formControlName]="'commit'" [placeholder]="'Escribe un comentario'" [rows]="3"
+                        cdkTextareaAutosize></textarea>
+                    <mat-error class="absolute" *ngIf="createCommintForm.get('commit').hasError('required')">
+                        Este campo es requerido*
+                    </mat-error>
+                    <mat-error class="absolute" *ngIf="createCommintForm.get('commit').hasError('maxlength')">
+                        Comentario demasiado largo
+                    </mat-error>
+                    
+                </mat-form-field>
+
+            </form>
+
+        </div>
+        
+        <div class="flex items-center mt-3 ml-auto -mr-3">
+
+            <button mat-icon-button (click)="createCommint()" [color]="'primary'">
+                <mat-icon class="icon-size-5" svgIcon="heroicons_mini:arrow-down-on-square"></mat-icon>
+            </button>
+        </div>
+    </div>
+    <p class="text-sm text-secondary mx-4 sm:mx-8 my-0">Comentarios: {{ listComments.length }}</p>
+    <hr class="border-b mx-4 sm:mx-8 my-0">
+    <div class="max-h-120 overflow-y-auto min-w-90" *ngIf="listComments.length>0; else noComentarios">
+        <mat-error class="absolute -mt-6" *ngIf="commentLimit<1">
+            Muchos comentarios por ahora!!
+        </mat-error>
+         
+        <div class="relative flex flex-col mx-4 sm:mx-8 my-6">
+
+            <div class="flex items-start" *ngFor="let c of listComments">
+                <img class="w-8 h-8 rounded-full mr-4" [src]="c.avatar ? c.avatar : 'assets/images/avatars/SinFotoComment.jpg'" alt="Card cover image">
+                <div class="flex flex-col mt-0.5">
+                    <span>
+                        <b>{{c.name}}</b> {{c.texto}}
+                    </span>
+                    <div class="flex items-center text-sm text-secondary mt-2">
+                        <span class="mr-2">&bull;</span>
+                        <span>{{c.tiempoTranscurrido}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <ng-template #noComentarios>
+        <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">No hay comentarios
+            disponibles!</div>
+    </ng-template>
+    <button mat-button [color]="'primary'" class="min-w-11 " (click)="loadMoreComments()">
+        <mat-icon svgIcon="add_comment"></mat-icon><b class="text-sm">Más comentarios</b>
+    </button>
+    <mat-error class="inline-block" *ngIf="banMoreComments">
+        No hay más comentarios
+    </mat-error>
+</ng-container>

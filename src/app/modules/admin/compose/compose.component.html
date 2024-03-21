@@ -1,0 +1,177 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6" *ngIf="user">
+
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <div class="text-lg font-medium">Editar Responsable</div>
+    <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+      <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+    </button>
+  </div>
+
+  <!-- Compose form -->
+  <form class="flex flex-col flex-auto p-1 sm:p-8 overflow-y-auto" [formGroup]="composeForm">
+    <!-- Otros campos de formulario -->
+
+    <div class="grid grid-cols-2 gap-5">
+      <mat-form-field>
+        <mat-label>Cédula</mat-label>
+        <input matInput formControlName="cedula" maxlength="10" pattern="[0-9]*" #cedulaField>
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+        <mat-error *ngIf="composeForm.get('cedula').hasError('required')">
+          Este campo es requerido.
+        </mat-error>
+        <mat-error
+          *ngIf="
+                composeForm.get('cedula').hasError('longitudInvalida') && (!composeForm.get('cedula').hasError('pattern'))">La
+          cédula debe contener 10 dígitos</mat-error>
+        <mat-error *ngIf="composeForm.get('cedula').hasError('pattern')">Solo se
+          permiten números en
+          la
+          cédula</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Primer Nombre</mat-label>
+        <input matInput formControlName="primer_nombre" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$">
+        <mat-error *ngIf="
+              composeForm.get('primer_nombre').hasError('required')
+                            ">Este campo es requerido</mat-error>
+        <mat-error *ngIf="composeForm.get('primer_nombre').hasError('pattern')">
+          Nombre inválido
+        </mat-error>
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Segundo Nombre</mat-label>
+        <input matInput formControlName="segundo_nombre" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$" />
+        <mat-error *ngIf="
+              composeForm.get('segundo_nombre').hasError('required')
+              ">Este campo es requerido</mat-error>
+        <mat-error *ngIf="composeForm.get('segundo_nombre').hasError('pattern')">
+          Nombre inválido
+        </mat-error>
+         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Primer Apellido</mat-label>
+        <input matInput formControlName="primer_apellido" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$" />
+        <mat-error *ngIf="
+              composeForm.get('primer_apellido').hasError('required')
+              ">Este campo es requerido</mat-error>
+        <mat-error *ngIf="composeForm.get('primer_apellido').hasError('pattern')">
+          Apellido inválido
+        </mat-error>
+         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Segundo Apellido</mat-label>
+        <input matInput formControlName="segundo_apellido" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$" />
+        <mat-error *ngIf="
+                composeForm.get('segundo_apellido').hasError('required')
+                ">Este campo es requerido</mat-error>
+        <mat-error *ngIf="composeForm.get('segundo_apellido').hasError('pattern')">
+          Apellido inválido
+        </mat-error>
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput formControlName="correo" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+          #correoField />
+        <mat-error *ngIf="
+                composeForm.get('correo').hasError('required')
+            ">Este campo es requerido</mat-error>
+        <mat-error *ngIf="composeForm.get('correo').hasError('pattern')">El correo
+          no es
+          válido</mat-error>
+         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Celular</mat-label>
+        <input matInput formControlName="celular" maxlength="10" pattern="[0-9]*" />
+        <mat-error *ngIf="
+            composeForm.get('celular').hasError('required')
+            ">Este campo es requerido</mat-error>
+        <mat-error
+          *ngIf="
+                composeForm.get('celular').hasError('longitudInvalida') && (!composeForm.get('celular').hasError('pattern'))">El
+          celular debe contener 10 dígitos</mat-error>
+        <mat-error *ngIf="composeForm.get('celular').hasError('pattern')">Solo se
+          permiten
+          números en
+          el
+          celular</mat-error>
+         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="direccion" pattern="^\S.*\S$">
+         <mat-error *ngIf="composeForm.get('direccion').hasError('required')">Este
+          campo es
+          requerido</mat-error>
+        <mat-error *ngIf="composeForm.get('direccion').hasError('pattern')">Dirección
+          inválida</mat-error>
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado" matInput>
+          <mat-option *ngFor="let estado of estados" [value]="estado.value">{{ estado.label }}</mat-option>
+        </mat-select>
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:shield-check'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+        <mat-label>Género</mat-label>
+        <mat-select formControlName="genero" matInput>
+          <mat-option *ngFor="let genero of generos" [value]="genero.value">{{ genero.label }}</mat-option>
+        </mat-select>
+       <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+        <mat-label>Nacionalidad</mat-label>
+        <mat-select formControlName="nacionalidad" matInput>
+          <mat-option *ngFor="let pais of nacionalidades" [value]="pais.value">{{ pais.label }}</mat-option>
+        </mat-select>
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-americas'"></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input [formControlName]="'fecha_nacimiento'" matInput reandonly>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Otros campos de formulario -->
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+      <div class="-ml-2">
+
+      </div>
+
+      <div class="flex items-center mt-4 sm:mt-0">
+        <!-- Discard -->
+        <button id="datos" class="ml-auto sm:ml-0" mat-stroked-button (click)="discard()">
+          Cancelar
+        </button>
+
+        <!-- Send -->
+        <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="updateUser()"
+        [disabled]="isFormInvalid()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

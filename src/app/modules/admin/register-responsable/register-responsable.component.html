@@ -1,0 +1,379 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">Dashboard</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500" href="/list-responsables">Lista Responsables de Ventas</a>
+                </div>
+
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon class="icon-size-5 text-secondary" [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">Registro Responsable de Ventas</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-8">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Registro Responsable de Ventas
+                </h2>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="p-4 bg-card shadow rounded overflow-hidden" [formGroup]="horizontalStepperForm">
+        <mat-horizontal-stepper [linear]="true" #horizontalStepper>
+            <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')"
+                #horizontalStepperStep1>
+                <ng-template matStepLabel>Información Personal</ng-template>
+
+
+                <fuse-alert class="mt-8" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                    [type]="alert.type" [@shake]="alert.type === 'error'">
+                    {{ alert.message }}
+                </fuse-alert>
+
+                <p class="my-6 font-medium">
+                    Complete todos los campos con su información personal
+                </p>
+
+                <div class="grid grid-cols-2 gap-6">
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Cédula</mat-label>
+                            <input matInput [formControlName]="'cedula'" [placeholder]="'Cedula'" maxlength="10"
+                                pattern="[0-9]*" #cedulaField>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:identification'"></mat-icon>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.cedula').hasError('required')">
+                                Este campo es requerido.
+                            </mat-error>
+                            <mat-error
+                                *ngIf="
+                                horizontalStepperForm.get('step1.cedula').hasError('longitudInvalida') && (!horizontalStepperForm.get('step1.cedula').hasError('pattern'))">La
+                                cédula debe contener 10 dígitos</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.cedula').hasError('pattern')">Solo se
+                                permiten números en
+                                la
+                                cédula</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Primer Nombre</mat-label>
+                            <input matInput [formControlName]="'primerNombre'" [placeholder]="'Primer Nombre'"
+                                pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$" />
+                            <mat-error *ngIf="
+                            horizontalStepperForm.get('step1.primerNombre').hasError('required')
+                            ">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.primerNombre').hasError('pattern')">
+                                Nombre inválido
+                            </mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Segundo Nombre</mat-label>
+                            <input matInput [formControlName]="'segundoNombre'" [placeholder]="'Segundo Nombre'"
+                                pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$" />
+                            <mat-error *ngIf="
+                            horizontalStepperForm.get('step1.segundoNombre').hasError('required')
+                            ">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.segundoNombre').hasError('pattern')">
+                                Nombre inválido
+                            </mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Primer Apellido</mat-label>
+                            <input matInput [formControlName]="'primerApellido'" [placeholder]="'Primer Apellido'"
+                                pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$" />
+                            <mat-error *ngIf="
+                            horizontalStepperForm.get('step1.primerApellido').hasError('required')
+                            ">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.primerApellido').hasError('pattern')">
+                                Apellido inválido
+                            </mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Segundo Apellido</mat-label>
+                            <input matInput [formControlName]="'segundoApellido'" [placeholder]="'Segundo Apellido'"
+                                pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$" />
+                            <mat-error *ngIf="
+                            horizontalStepperForm.get('step1.segundoApellido').hasError('required')
+                            ">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.segundoApellido').hasError('pattern')">
+                                Apellido inválido
+                            </mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Correo Electrónico</mat-label>
+                            <input matInput [formControlName]="'correo'" [placeholder]="'Correo Electronico'"
+                                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" #correoField/>
+                            <mat-error *ngIf="
+                            horizontalStepperForm.get('step1.correo').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.correo').hasError('pattern')">El correo
+                                no es
+                                válido</mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Celular</mat-label>
+                            <input matInput [formControlName]="'celular'" [placeholder]="'Celular'" maxlength="10"
+                                pattern="[0-9]*" />
+                            <mat-error *ngIf="
+                            horizontalStepperForm.get('step1.celular').hasError('required')
+                            ">Este campo es requerido</mat-error>
+                            <mat-error
+                                *ngIf="
+                                horizontalStepperForm.get('step1.celular').hasError('longitudInvalida') && (!horizontalStepperForm.get('step1.celular').hasError('pattern'))">El
+                                celular debe contener 10 dígitos</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.celular').hasError('pattern')">Solo se
+                                permiten
+                                números en
+                                el
+                                celular</mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Dirección</mat-label>
+                            <input matInput [formControlName]="'direccion'" [placeholder]="'Direccion'"
+                                pattern="^\S.*\S$" />
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.direccion').hasError('required')">Este
+                                campo es
+                                requerido</mat-error>
+                            <mat-error
+                                *ngIf="horizontalStepperForm.get('step1.direccion').hasError('pattern')">Dirección
+                                inválida</mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex">
+                        <mat-form-field class="w-full">
+                            <mat-label>Fecha de Nacimiento</mat-label>
+                            <input id="fechaNacimiento" matInput [formControlName]="'fechaNacimiento'"
+                                [matDatepicker]="picker1" [(ngModel)]="selectedDate" readonly/>
+                            <mat-error *ngIf="
+                            horizontalStepperForm.get('step1.fechaNacimiento').hasError('required')
+                        ">Este campo es requerido</mat-error>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.fechaNacimiento').hasError('menorDeEdad')">Debes tener al
+                                menos 18 años</mat-error>
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field class="flex-auto gt-xs:pr-3">
+                            <mat-label>Género</mat-label>
+                            <mat-select [formControlName]="'genero'" [placeholder]="'Género'" required>
+                                <mat-option value="Masculino">Masculino</mat-option>
+                                <mat-option value="Femenino">Femenino</mat-option>
+                                <mat-option value="Otro">Otro ...</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.genero').hasError('required')">
+                                Este campo es requerido
+                            </mat-error>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:users'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+
+                        <mat-form-field class="flex-auto gt-xs:pl-3">
+                            <mat-label>Nacionalidad</mat-label>
+                            <mat-select [formControlName]="'nacionalidad'" [placeholder]="'Nacionalidad'" required>
+                                <mat-option value="Ecuador">Ecuador</mat-option>
+                                <mat-option value="Perú">Perú</mat-option>
+                                <mat-option value="Colombia">Colombia</mat-option>
+                                <mat-option value="Venezuela">Venezuela</mat-option>
+                                <mat-option value="Chile">Chile</mat-option>
+                                <mat-option value="Argentina">Argentina</mat-option>
+                                <mat-option value="Brasil">Brasil</mat-option>
+                                <mat-option value="Uruguay">Uruguay</mat-option>
+                                <mat-option value="Paraguay">Paraguay</mat-option>
+                                <mat-option value="Bolivia">Bolivia</mat-option>
+                                <mat-option value="México">México</mat-option>
+                                <mat-option value="Estados Unidos">Estados Unidos</mat-option>
+                                <mat-option value="Canadá">Canadá</mat-option>
+                                <mat-option value="España">España</mat-option>
+                                <mat-option value="Otro">Otro ...</mat-option>
+                            </mat-select>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:globe-americas'"></mat-icon>
+                            <mat-error *ngIf="horizontalStepperForm.get('step1.nacionalidad').hasError('required')">
+                                Este campo es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button class="px-8" mat-flat-button [color]="'primary'"
+                        [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
+                        type="button" (click)="capturarCedulaYBuscar()" #horizontalStepper >
+                        Siguiente
+                    </button>
+                </div>
+            </mat-step>
+
+            <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')"
+                #horizontalStepperStep2>
+                <ng-template matStepLabel>Generar Credenciales</ng-template>
+                <p class="my-6 font-medium">
+                    Información de usuario
+                </p>
+
+                <div class="relative w-24 h-24">
+                    <mat-label>Foto</mat-label> <br>
+                    <img class="w-full h-full rounded-full" *ngIf="selectedImageSrc" [src]="selectedImageSrc" alt="User avatar">
+                    <mat-icon class="icon-size-24" *ngIf="!selectedImageSrc" [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-15">
+                    <!-- Columna de la imagen de perfil -->
+                    <div class="sm:col-span-1">
+                      <div class="-mt-18 lg:-mt-18 rounded-full">
+                        <br><br><span>↓ ¿Desea cambiar su foto de perfil? ↓</span><br>
+                        <input id="image" type="file" accept="image/*" class="form-control" (change)="upload($event)" /> <br>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field class="flex-auto gt-xs:pr-3">
+                        <input matInput [formControlName]="'usuario'" [placeholder]="'Usuario'" readonly>
+                        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="flex-auto gt-xs:pl-3">
+                        <input matInput [formControlName]="'email'" [placeholder]="'Correo Electrónico'" readonly>
+                        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex">
+                    <mat-form-field class="w-full">
+                        <mat-label>Contraseña</mat-label>
+                        <input id="password" matInput type="password" [formControlName]="'password'" #passwordField maxlength="8" pattern="^(?!.*\s).*$" />
+                        <button mat-icon-button type="button" (click)="
+                                passwordField.type === 'password'
+                                    ? (passwordField.type = 'text')
+                                    : (passwordField.type = 'password')
+                            " matSuffix>
+                            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                            <mat-icon class="icon-size-5" *ngIf="passwordField.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+                        </button>
+                        <mat-error *ngIf="horizontalStepperForm.get('step2.password').hasError('required')">Este campo es
+                            requerido</mat-error>
+                        <mat-error
+                            *ngIf="horizontalStepperForm.get('step2.password').hasError('longitudInvalida') && (!horizontalStepperForm.get('step2.password').hasError('pattern'))">La
+                            contraseña debe contener 8 dígitos</mat-error>
+                        <mat-error *ngIf="horizontalStepperForm.get('step2.password').hasError('pattern')">Contraseña
+                            inválida</mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div class="flex">
+                    <mat-form-field class="flex-auto">
+                        <textarea matInput [formControlName]="'descripcion'" [placeholder]="'Descripcion'"
+                            [rows]="3"></textarea>
+                        <mat-icon class="icon-size-5" matPrefix
+                            [svgIcon]="'heroicons_solid:bars-3-bottom-left'"></mat-icon>
+                    </mat-form-field>
+                </div>
+
+                
+                  
+
+                <div class="flex justify-end">
+                    <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                        Regresar
+                    </button>
+                    <button class="px-8" mat-flat-button [color]="'primary'"
+                        [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
+                        type="button" matStepperNext>
+                        Siguiente
+                    </button>
+                </div>
+            </mat-step>
+
+            <mat-step [formGroupName]="'step3'" [stepControl]="horizontalStepperForm.get('step3')">
+                <ng-template matStepLabel>Asignar Rol</ng-template>
+                <p class="my-6 font-medium">
+                    Recuerde seleccionar el rol respectivo a su perfil
+                </p>
+                <div class="flex flex-col gt-sm:flex-row">
+                    <div class="flex flex-col mt-8 gt-sm:mt-0 gt-sm:ml-16">
+                        <span class="font-medium mb-2">Roles del Sistema</span>
+                        <mat-radio-group class="flex flex-col" [color]="'primary'" [formControlName]="'rolUser'">
+                            <mat-radio-button class="mb-2" [value]="'Responsable'">
+                                Responsable
+                            </mat-radio-button>
+                            <mat-radio-button class="mb-2" [value]="'Emprendedora'">
+                                Emprendedora
+                            </mat-radio-button>
+                            <mat-radio-button [value]="'Cliente'">
+                                Cliente
+                            </mat-radio-button>
+                        </mat-radio-group>
+
+                    </div>
+                </div>
+                <div class="flex justify-end mt-8">
+                    <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                        Regresar
+                    </button>
+                    <button class="px-8" mat-flat-button [color]="'primary'" type="button" matStepperNext>
+                        Siguiente
+                    </button>
+                </div>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Verificar</ng-template>
+                <p class="my-6 font-medium">
+                    Gracias por rellenar nuestro formulario. Puede restablecer el formulario si desea cambiar su información.
+                </p>
+                <div class="flex justify-end mt-8">
+                    <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
+                        Regresar
+                    </button>
+                    <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="registrarPersona()"
+                        >
+                        Guardar Cambios
+                    </button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </form>
+</div>
